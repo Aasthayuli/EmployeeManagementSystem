@@ -1,0 +1,8 @@
+# Compiled class files
+*.class
+# VS Code
+.vscode/
+# External libraries
+lib/*.jar
+# Database-related files
+*.sql

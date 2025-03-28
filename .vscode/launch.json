@@ -1,0 +1,84 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Remove",
+      "request": "launch",
+      "mainClass": "employee.management.system.Remove",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "Update",
+      "request": "launch",
+      "mainClass": "employee.management.system.Update",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "View",
+      "request": "launch",
+      "mainClass": "employee.management.system.View",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "Add",
+      "request": "launch",
+      "mainClass": "employee.management.system.Add",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "HomePage",
+      "request": "launch",
+      "mainClass": "employee.management.system.HomePage",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "DBConnection",
+      "request": "launch",
+      "mainClass": "employee.management.system.DBConnection",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "employee.management.system.Main",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "LoginPage",
+      "request": "launch",
+      "mainClass": "employee.management.system.LoginPage",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "Login",
+      "request": "launch",
+      "mainClass": "employee.management.system.Login",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    },
+    {
+      "type": "java",
+      "name": "Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "First",
+      "request": "launch",
+      "mainClass": "employee.management.system.First",
+      "projectName": "EmployeeManagementSystem_f975b8f9"
+    }
+  ]
+}
