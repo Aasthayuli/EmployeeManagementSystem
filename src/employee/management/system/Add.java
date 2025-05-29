@@ -199,6 +199,10 @@ public class Add extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Phone number must be 10 digits or less.");
                 return;
             }
+            if (aadhaar.length() > 12) {
+                JOptionPane.showMessageDialog(null, "Aadhar number must be 12 digits.");
+                return;
+            }
 
             try {
                 DBConnection db = new DBConnection();
