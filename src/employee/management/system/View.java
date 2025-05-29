@@ -74,7 +74,7 @@ public class View extends JFrame implements ActionListener {
         setLayout(null);
         setLocation(300, 100);
         setVisible(true);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.sql.Statement;
 
 public class DBConnection {
 
-    Connection connection;
-    Statement statement;
+    public Statement statement;
+    public Connection connection;
 
     public DBConnection() {
         String url = "jdbc:mysql://localhost:3306/employeemanagement";
@@ -20,7 +20,7 @@ public class DBConnection {
             statement = connection.createStatement();
             System.out.println("Connected to database successfully !");
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             System.out.println("Error while connecting to database !");
         }
     }

@@ -9,6 +9,48 @@
       "name": "Remove",
       "request": "launch",
       "mainClass": "employee.management.system.Remove",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "View",
+      "request": "launch",
+      "mainClass": "employee.management.system.View",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "HomePage",
+      "request": "launch",
+      "mainClass": "employee.management.system.HomePage",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "Update",
+      "request": "launch",
+      "mainClass": "employee.management.system.Update",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "Add",
+      "request": "launch",
+      "mainClass": "employee.management.system.Add",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "First",
+      "request": "launch",
+      "mainClass": "employee.management.system.First",
+      "projectName": "EmployeeManagementSystem_c93bd6db"
+    },
+    {
+      "type": "java",
+      "name": "Remove",
+      "request": "launch",
+      "mainClass": "employee.management.system.Remove",
       "projectName": "EmployeeManagementSystem_f975b8f9"
     },
     {

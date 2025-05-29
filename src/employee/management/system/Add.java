@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
 
 public class Add extends JFrame implements ActionListener {
 
@@ -22,6 +23,7 @@ public class Add extends JFrame implements ActionListener {
     JTextField tname, tfname, taddress, tphone, taadhaar, temail, tsalary, tdesignation;
     JLabel tempid;
     JDateChooser tdob;
+    @SuppressWarnings("rawtypes")
     JComboBox BoxEducation;
     JButton add, back;
 
@@ -176,34 +178,54 @@ public class Add extends JFrame implements ActionListener {
         if (e.getSource() == add) {
             String name = tname.getText();
             String fname = tfname.getText();
-            String dobText = ((JTextField) tdob.getDateEditor().getUiComponent()).getText();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dobText = sdf.format(tdob.getDate());
             String salary = tsalary.getText();
             String address = taddress.getText();
             String aadhaar = taadhaar.getText();
-            String phone = tphone.getText();
+            String phone = tphone.getText().trim();
             String email = temail.getText();
             String education = (String) BoxEducation.getSelectedItem();
             String designation = tdesignation.getText();
             String empid = tempid.getText();
 
+            // === Input Validations ===
             if (name.equals("") || fname.equals("") || dobText.equals("") || salary.equals("") || address.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please fill all the details");
-            } else {
+                JOptionPane.showMessageDialog(null, "Please fill all the required details");
+                return;
+            }
 
-                try {
-                    DBConnection db = new DBConnection();
-                    String query = "insert into employee values('" + name + "','" + fname + "','" + dobText + "','"
-                            + salary
-                            + "','" + address + "','" + phone + "','" + email + "','" + education + "','" + designation
-                            + "','"
-                            + aadhaar + "','" + empid + "')";
-                    db.statement.executeUpdate(query);
-                    JOptionPane.showMessageDialog(null, "Details Added Successfully !");
-                    setVisible(false);
-                    new HomePage();
-                } catch (Exception E) {
-                    E.printStackTrace();
-                }
+            if (phone.length() > 10) {
+                JOptionPane.showMessageDialog(null, "Phone number must be 10 digits or less.");
+                return;
+            }
+
+            try {
+                DBConnection db = new DBConnection();
+                String query = "INSERT INTO employee (name, father_name, dob, salary, address, aadhaar, phone, email, education, designation, empid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                java.sql.PreparedStatement pstmt = db.connection.prepareStatement(query);
+                pstmt.setString(1, name);
+                pstmt.setString(2, fname);
+                pstmt.setString(3, dobText);
+                pstmt.setString(4, salary);
+                pstmt.setString(5, address);
+                pstmt.setString(6, aadhaar);
+                pstmt.setString(7, phone);
+                pstmt.setString(8, email);
+                pstmt.setString(9, education);
+                pstmt.setString(10, designation);
+                pstmt.setString(11, empid);
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Details Added Successfully!");
+                setVisible(false);
+                new HomePage();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
         } else {
             setVisible(false);

@@ -1,26 +1,18 @@
 package employee.management.system;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import javax.swing.*;
 
 public class Update extends JFrame implements ActionListener {
 
-    JTextField tname, taddress, tphone, taadhaar, temail, tsalary, teducation, tdesignation;
-    JLabel tempid;
+    JTextField taddress, tphone, temail, tsalary, teducation, tdesignation;
+    JLabel tname, tfname, tdob, taadhaar, tempid;
     JButton update, back;
     String number;
 
     public Update(String number) {
-
         this.number = number;
 
         JLabel heading = new JLabel("Update Details");
@@ -33,7 +25,7 @@ public class Update extends JFrame implements ActionListener {
         name.setFont(new Font("SAN_SERIF", Font.BOLD, 20));
         add(name);
 
-        JLabel tname = new JLabel();
+        tname = new JLabel();
         tname.setBounds(200, 150, 150, 30);
         tname.setBackground(new Color(129, 191, 218));
         add(tname);
@@ -43,7 +35,7 @@ public class Update extends JFrame implements ActionListener {
         fname.setFont(new Font("SAN_SERIF", Font.BOLD, 20));
         add(fname);
 
-        JLabel tfname = new JLabel();
+        tfname = new JLabel();
         tfname.setBounds(650, 150, 150, 30);
         tfname.setBackground(new Color(129, 191, 218));
         add(tfname);
@@ -53,7 +45,7 @@ public class Update extends JFrame implements ActionListener {
         dob.setFont(new Font("SAN_SERIF", Font.BOLD, 20));
         add(dob);
 
-        JLabel tdob = new JLabel();
+        tdob = new JLabel();
         tdob.setBounds(200, 200, 150, 30);
         tdob.setFont(new Font("Tahoma", Font.BOLD, 15));
         add(tdob);
@@ -99,7 +91,7 @@ public class Update extends JFrame implements ActionListener {
         add(temail);
 
         JLabel education = new JLabel("Highest Education");
-        education.setBounds(400, 300, 150, 30);
+        education.setBounds(400, 300, 180, 30);
         education.setFont(new Font("SAN_SERIF", Font.BOLD, 20));
         add(education);
 
@@ -108,15 +100,15 @@ public class Update extends JFrame implements ActionListener {
         teducation.setBackground(new Color(129, 191, 218));
         add(teducation);
 
-        JLabel aadhar = new JLabel("Aadhar No.");
+        JLabel aadhar = new JLabel("Aadhaar No.");
         aadhar.setBounds(400, 350, 150, 30);
         aadhar.setFont(new Font("SAN_SERIF", Font.BOLD, 20));
         add(aadhar);
 
-        JLabel taadhar = new JLabel();
-        taadhar.setBounds(600, 350, 150, 30);
-        taadhar.setBackground(new Color(129, 191, 218));
-        add(taadhar);
+        taadhaar = new JLabel();
+        taadhaar.setBounds(600, 350, 150, 30);
+        taadhaar.setBackground(new Color(129, 191, 218));
+        add(taadhaar);
 
         JLabel designation = new JLabel("Designation");
         designation.setBounds(50, 350, 150, 30);
@@ -141,21 +133,22 @@ public class Update extends JFrame implements ActionListener {
 
         try {
             DBConnection c = new DBConnection();
-            String query = "select * from employee where empid='" + number + "'";
-            ResultSet rs = c.statement.executeQuery(query);
+            String query = "SELECT * FROM employee WHERE empid=?";
+            PreparedStatement pst = c.connection.prepareStatement(query);
+            pst.setString(1, number);
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 tname.setText(rs.getString("name"));
-                tfname.setText(rs.getString("fname"));
+                tfname.setText(rs.getString("father_name"));
                 tdob.setText(rs.getString("dob"));
                 tsalary.setText(rs.getString("salary"));
                 taddress.setText(rs.getString("address"));
+                taadhaar.setText(rs.getString("aadhaar"));
                 tphone.setText(rs.getString("phone"));
                 temail.setText(rs.getString("email"));
                 teducation.setText(rs.getString("education"));
                 tdesignation.setText(rs.getString("designation"));
-                taadhar.setText(rs.getString("aadhar"));
                 tempid.setText(rs.getString("empid"));
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,16 +158,15 @@ public class Update extends JFrame implements ActionListener {
         update.setBounds(250, 550, 150, 40);
         update.setBackground(Color.BLACK);
         update.setForeground(Color.WHITE);
-        add(update);
-
         update.addActionListener(this);
+        add(update);
 
         back = new JButton("BACK");
         back.setBounds(450, 550, 150, 40);
         back.setBackground(Color.BLACK);
         back.setForeground(Color.WHITE);
-        add(back);
         back.addActionListener(this);
+        add(back);
 
         setTitle("Update Employee Details");
         setSize(900, 700);
@@ -190,22 +182,35 @@ public class Update extends JFrame implements ActionListener {
             String address = taddress.getText();
             String phone = tphone.getText();
             String email = temail.getText();
+            String education = teducation.getText();
             String designation = tdesignation.getText();
 
             if (salary.equals("") || address.equals("") || phone.equals("") || email.equals("")
                     || designation.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill all the details");
             } else {
-
                 try {
                     DBConnection c = new DBConnection();
-                    String query = "update employee set salary='" + salary + "',address='" + address
-                            + "',phone='" + phone + "',email='" + email + "',designation='"
-                            + designation + "' where empid='" + number + "'";
-                    c.statement.executeUpdate(query);
-                    JOptionPane.showMessageDialog(null, "Details Updated Successfully");
-                    setVisible(false);
-                    new HomePage();
+                    String query = "UPDATE employee SET salary=?, address=?, phone=?, email=?, education=?, designation=? WHERE empid=?";
+                    PreparedStatement pst = c.connection.prepareStatement(query);
+                    pst.setString(1, salary);
+                    pst.setString(2, address);
+                    pst.setString(3, phone);
+                    pst.setString(4, email);
+                    pst.setString(5, education);
+                    pst.setString(6, designation);
+                    pst.setString(7, number);
+
+                    int rowsAffected = pst.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Details Updated Successfully");
+                        setVisible(false);
+                        new HomePage();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Update Failed");
+                    }
+
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -219,5 +224,4 @@ public class Update extends JFrame implements ActionListener {
     public static void main(String[] args) {
         new Update("");
     }
-
 }

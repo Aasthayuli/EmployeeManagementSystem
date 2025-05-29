@@ -60,8 +60,6 @@ public class Remove extends JFrame implements ActionListener {
         textEmail.setBounds(200, 200, 150, 30);
         add(textEmail);
 
-        // This try block is executed once during the construction of the RemoveEmployee
-        // frame:
         try {
             DBConnection c = new DBConnection();
             ResultSet resultSet = c.statement
@@ -78,7 +76,7 @@ public class Remove extends JFrame implements ActionListener {
         choiceEMPID.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // This try block is executed to update everytime the empid is selected
+
                 try {
                     DBConnection c = new DBConnection();
                     ResultSet resultSet = c.statement.executeQuery(
